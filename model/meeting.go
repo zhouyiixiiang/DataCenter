@@ -7,10 +7,22 @@ import (
 
 type Meeting struct {
 	gorm.Model
-	Name      string
+	Title      string
 	StartTime time.Time
 	EndTime   time.Time
-	Comments  string
+	GroupId   uint
+}
+func (item *Meeting)tableName() string {
+	return "meeting"
+}
+
+func (item *Meeting)Create() error{
+	return DB.Table(item.tableName()).Create(item).Error
+}
+
+func (item *Meeting)GetByGroupId(id int64)(list []Meeting,err error){
+	err =DB.Table(item.tableName()).Where("group_id=?",id).Find(&list).Error
+	return
 }
 
 func GetMeeting(Id interface{}) (meeting Meeting, err error) {
