@@ -16,5 +16,6 @@ func Init(conn string, poolsize int) (err error) {
 	}
 	DB.DB().SetMaxOpenConns(poolsize)
 	DB.DB().SetMaxIdleConns(poolsize)
+	migration()
 	return
 }

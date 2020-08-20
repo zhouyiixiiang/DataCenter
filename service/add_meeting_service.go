@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"model"
 	"serializer"
 	"time"
@@ -8,20 +9,30 @@ import (
 
 type AddMeetingService struct {
 	Title string `form:"title" json:"title" binding:"required,min=2,max=50"`
-	StartTime time.Time `form:"start_time" json:"start_time"`
-	EndTime time.Time `form:"end_time" json:"end_time"`
-	GroupId int64 `form:"group_id" json:"group_id"`
+	StartTime string `form:"start_time" json:"start_time"`
+	EndTime string `form:"end_time" json:"end_time"`
+	GroupId uint `form:"group_id" json:"group_id"`
 }
 
 // AddMeeting 添加会议
 func (service *AddMeetingService) AddMeeting() serializer.Response {
+	timelocal,_:= time.LoadLocation("Asia/Chongqing")
+	time.Local=timelocal
+	startDay,err:=time.ParseInLocation(STANDARD_TIME_FMT,service.StartTime,timelocal)
+	if err!=nil {
+		fmt.Println("parse meeting startTime err: ",err)
+	}
+	endDay,err:=time.ParseInLocation(STANDARD_TIME_FMT,service.EndTime,timelocal)
+	if err!=nil {
+		fmt.Println("parse meeting startTime err: ",err)
+	}
 	meeting :=model.Meeting{
 		Title: service.Title,
-		StartTime: service.StartTime,
-		EndTime: service.EndTime,
+		StartTime: startDay,
+		EndTime: endDay,
 		GroupId: service.GroupId,
 	}
-	err :=meeting.Create()
+	err =meeting.Create()
 	if err!=nil{
 		return serializer.Response{
 			Code:50001,
@@ -31,7 +42,7 @@ func (service *AddMeetingService) AddMeeting() serializer.Response {
 		}
 	}
 	return serializer.Response{
-		Data:
+		Data:serializer.BuildMeeting(meeting),
 	}
 
 }

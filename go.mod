@@ -8,6 +8,7 @@ replace (
 	model => ./model
 	router => ./router
 	service => ./service
+	serializer => ./serializer
 )
 
 require (

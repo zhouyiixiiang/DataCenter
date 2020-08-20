@@ -8,7 +8,7 @@
     },
     "data_center":
     {
-      "MysqlConn": "root:zyx1994319@(localhost:3306)/book_agent",
+      "MysqlConn": "root:12345678@(localhost:3306)/data_center",
       "MysqlConnectPoolSize": 5
     }
   },
@@ -28,11 +28,15 @@
       "ServerMaxOrderChanNum": 10
     }
   },
-  "LocalSetting":
+  "SrvSetting":
   {
     "book_agent":
     {
       "BookStoreDir": "/Users/zhouyixiang/Documents/workspace/src/logAgent"
+    },
+    "data_center":
+    {
+      "SrvListen": ":8000"
     }
   },
   "KafkaSetting":

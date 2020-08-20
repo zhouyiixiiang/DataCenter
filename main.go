@@ -25,4 +25,5 @@ func main() {
 	fmt.Println(config.SrvName, " starting...")
 	engine := gin.New()
 	router.GroupRouter(engine)
+	engine.Run(config.Config.SrvSetting[config.SrvName].SrvListen)
 }

@@ -16,6 +16,11 @@ type Configure struct {
 	KafkaSetting         map[string]*KafkaConfig
 	EtcdSetting          map[string]*EtcdConfig
 	ElasticSearchSetting map[string]*ElasticSearchConfig
+	SrvSetting           map[string]*SrvConfig
+}
+
+type SrvConfig struct {
+	SrvListen string
 }
 
 type MysqlConfig struct {

@@ -7,13 +7,13 @@ import (
 
 type Meeting struct {
 	gorm.Model
-	Title      string
+	Title     string
 	StartTime time.Time
 	EndTime   time.Time
 	GroupId   uint
 }
 func (item *Meeting)tableName() string {
-	return "meeting"
+	return "meetings"
 }
 
 func (item *Meeting)Create() error{

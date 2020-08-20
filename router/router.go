@@ -5,5 +5,6 @@ import (
 )
 
 func GroupRouter(engine *gin.Engine) {
-	RouteFront(engine)
+	BackendRouter(engine)
+	FrontRouter(engine)
 }
