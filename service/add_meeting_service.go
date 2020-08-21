@@ -8,42 +8,40 @@ import (
 )
 
 type AddMeetingService struct {
-	Title string `form:"title" json:"title" binding:"required,min=2,max=50"`
+	Title     string `form:"title" json:"title" binding:"required,min=2,max=50"`
 	StartTime string `form:"start_time" json:"start_time"`
-	EndTime string `form:"end_time" json:"end_time"`
-	GroupId uint `form:"group_id" json:"group_id"`
+	EndTime   string `form:"end_time" json:"end_time"`
+	GroupId   uint   `form:"group_id" json:"group_id"`
 }
 
 // AddMeeting 添加会议
 func (service *AddMeetingService) AddMeeting() serializer.Response {
-	timelocal,_:= time.LoadLocation("Asia/Chongqing")
-	time.Local=timelocal
-	startDay,err:=time.ParseInLocation(STANDARD_TIME_FMT,service.StartTime,timelocal)
-	if err!=nil {
-		fmt.Println("parse meeting startTime err: ",err)
+	startDay, err := time.ParseInLocation(STANDARD_TIME_FMT, service.StartTime, time.Local)
+	fmt.Println(startDay)
+	if err != nil {
+		fmt.Println("parse meeting startTime err: ", err)
 	}
-	endDay,err:=time.ParseInLocation(STANDARD_TIME_FMT,service.EndTime,timelocal)
-	if err!=nil {
-		fmt.Println("parse meeting startTime err: ",err)
+	endDay, err := time.ParseInLocation(STANDARD_TIME_FMT, service.EndTime, time.Local)
+	if err != nil {
+		fmt.Println("parse meeting startTime err: ", err)
 	}
-	meeting :=model.Meeting{
-		Title: service.Title,
+	meeting := model.Meeting{
+		Title:     service.Title,
 		StartTime: startDay,
-		EndTime: endDay,
-		GroupId: service.GroupId,
+		EndTime:   endDay,
+		GroupId:   service.GroupId,
 	}
-	err =meeting.Create()
-	if err!=nil{
+	err = meeting.Create()
+	if err != nil {
 		return serializer.Response{
-			Code:50001,
-			Data: nil,
-			Msg:"会议添加失败",
+			Code:  50001,
+			Data:  nil,
+			Msg:   "会议添加失败",
 			Error: err.Error(),
 		}
 	}
 	return serializer.Response{
-		Data:serializer.BuildMeeting(meeting),
+		Data: serializer.BuildMeeting(meeting),
 	}
 
 }
-
