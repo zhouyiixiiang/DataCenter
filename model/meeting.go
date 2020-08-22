@@ -12,17 +12,18 @@ type Meeting struct {
 	EndTime   time.Time
 	GroupId   uint
 }
-func (item *Meeting)tableName() string {
+
+func tableName() string {
 	return "meetings"
 }
 
-func (item *Meeting)Create() error{
-	return DB.Table(item.tableName()).Create(item).Error
+func (item *Meeting) Create() error {
+	return DB.Table(tableName()).Create(item).Error
 }
 
-func (item *Meeting)GetByGroupId(id int64)(list []Meeting,err error){
-	err =DB.Table(item.tableName()).Where("group_id=?",id).Find(&list).Error
-	return
+func GetByGroupId(id uint) (list []Meeting, err error) {
+	err = DB.Table(tableName()).Where("group_id=?", id).Find(&list).Error
+	return list, err
 }
 
 func GetMeeting(Id interface{}) (meeting Meeting, err error) {
