@@ -26,6 +26,12 @@ func GetByGroupId(id uint) (list []Meeting, err error) {
 	return list, err
 }
 
+func (item *Meeting)DeleteById(id uint) ( err error) {
+	err = DB.Table(tableName()).Where("id=?", id).Delete(&item).Error
+	return  err
+}
+
+
 func GetMeeting(Id interface{}) (meeting Meeting, err error) {
 	result := DB.First(&meeting, Id)
 	return meeting, result.Error

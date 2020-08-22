@@ -8,7 +8,7 @@
     },
     "data_center":
     {
-      "MysqlConn": "root:zyx1994319@(localhost:3306)/data_center?parseTime=true&charset=utf8&loc=Asia%2FShanghai",
+      "MysqlConn": "root:12345678@(localhost:3306)/data_center?parseTime=true&charset=utf8&loc=Asia%2FShanghai",
       "MysqlConnectPoolSize": 5
     }
   },
