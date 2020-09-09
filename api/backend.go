@@ -39,7 +39,7 @@ func BackendGetMettingList(c *gin.Context) {
 func BackendGetMeeting(c *gin.Context) {
 	var service service.GetMeetingService
 	if err := c.ShouldBind(&service); err == nil {
-		meeting,res := service.GetMeeting()
+		_,res := service.GetMeeting()
 		c.JSON(200, res)
 	} else {
 		c.JSON(200, serializer.ParamErr("", err))

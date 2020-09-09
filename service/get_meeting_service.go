@@ -2,7 +2,6 @@ package service
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"model"
 )
 
@@ -11,7 +10,7 @@ type GetMeetingService struct {
 	Name string `json:"name"`
 }
 
-func (service *GetMeetingService) GetMeeting(c *gin.Context) (meeting model.Meeting, err error) {
+func (service *GetMeetingService) GetMeeting() (meeting model.Meeting, err error) {
 	meeting, err = model.GetMeetingByName(service.Name)
 	if err != nil {
 		fmt.Println("get meeting err")
